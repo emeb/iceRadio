@@ -1,0 +1,66 @@
+#-- Synopsys, Inc.
+#-- Project file C:\Users\ericb\KBADC\KBADC\lattice\rxadc_2\verilog\rxadc_2\rxadc_2\rxadc_2_syn.prj
+#project files
+
+add_file -verilog -lib work "../src/clkgen.v" 
+add_file -verilog -lib work "../src/ddc_2.v" 
+add_file -verilog -lib work "../src/fir8dec.v" 
+add_file -verilog -lib work "../src/i2s_out.v" 
+add_file -verilog -lib work "../src/rxadc_2.v" 
+add_file -verilog -lib work "../src/sat.v" 
+add_file -verilog -lib work "../src/spi_slave.v" 
+add_file -verilog -lib work "../src/tuner_2.v" 
+add_file -verilog -lib work "../src/cic_dec_3.v" 
+add_file -verilog -lib work "../src/tuner_slice_1k.v" 
+add_file -constraint -lib work "../src/rxadc.sdc"
+#implementation: "rxadc_2_Implmnt"
+impl -add rxadc_2_Implmnt -type fpga
+
+#implementation attributes
+set_option -vlog_std v2001
+set_option -project_relative_includes 1
+
+#device options
+set_option -technology SBTiCE5LP
+set_option -part iCE5LP4K
+set_option -package SG48
+set_option -speed_grade 
+set_option -part_companion ""
+
+#compilation/mapping options
+
+# mapper_options
+set_option -frequency auto
+set_option -write_verilog 0
+set_option -write_vhdl 0
+
+# Silicon Blue iCE5LP
+set_option -maxfan 10000
+set_option -disable_io_insertion 0
+set_option -pipe 1
+set_option -retiming 0
+set_option -update_models_cp 0
+set_option -fixgatedclocks 2
+set_option -fixgeneratedclocks 0
+
+# NFilter
+set_option -popfeed 0
+set_option -constprop 0
+set_option -createhierarchy 0
+
+# sequential_optimization_options
+set_option -symbolic_fsm_compiler 1
+
+# Compiler Options
+set_option -compiler_compatible 0
+set_option -resource_sharing 1
+
+#automatic place and route (vendor) options
+set_option -write_apr_constraint 1
+
+#set result format/file last
+project -result_format "edif"
+project -result_file ./rxadc_2_Implmnt/rxadc_2.edf
+project -log_file "./rxadc_2_Implmnt/rxadc_2.srr"
+impl -active rxadc_2_Implmnt
+project -run synthesis -clean

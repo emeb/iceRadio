@@ -1,0 +1,44 @@
+# ##############################################################################
+
+# iCEcube PCF
+
+# Version:            2016.02.27810
+
+# File Generated:     May 3 2016 09:34:27
+
+# Family & Device:    iCE5LP4K
+
+# Package:            SG48
+
+# ##############################################################################
+
+###IOSet List 17
+set_io SPI_MISO 14
+set_io SPI_SCLK 15
+set_io SPI_CSL 16
+set_io SPI_MOSI 17
+set_io rxadc_clk 20
+set_io rxadc_dfs 19
+set_io rxadc_otr 23
+set_io rxadc_dat[0] 37
+set_io rxadc_dat[1] 34
+set_io rxadc_dat[2] 35
+set_io rxadc_dat[3] 31
+set_io rxadc_dat[4] 32
+set_io rxadc_dat[5] 27
+set_io rxadc_dat[6] 28
+set_io rxadc_dat[7] 25
+set_io rxadc_dat[8] 26
+set_io rxadc_dat[9] 21
+set_io dac_lrck 48
+set_io dac_mclk 3
+set_io dac_sclk 46
+set_io dac_sdout 43
+set_io mcu_lrck 11
+set_io mcu_sclk 10
+set_io mcu_sdout 9
+set_io mcu_sdin 6
+
+###ProDemote List 1
+demote_signal_unbuffered u_ddc.ena_cic_g
+
