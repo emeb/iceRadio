@@ -107,7 +107,7 @@ void menu_demod_draw(void)
 void menu_rssi_draw(void)
 {
 	int16_t rssi_dBm = Audio_GetRSSI();
-	int8_t w, wt;
+	uint8_t w, wt;
     
     /* text */
 	//printf("rssi: %d dBm\n", rssi_dBm);
@@ -115,31 +115,29 @@ void menu_rssi_draw(void)
 	ST7735_drawstr(0,50,(uint8_t *)txt_buff, ST7735_WHITE, ST7735_BLACK);
     
     /* bargraph */
-    w = rssi_dBm + 140;
-    if(w>127)
-        w = 127;
-    if(w<0)
-        w = 0;
+    rssi_dBm += 140;
+    if(rssi_dBm>127)
+        rssi_dBm = 127;
+    if(rssi_dBm<0)
+        rssi_dBm = 0;
+    w = rssi_dBm;
     
-#if 1
     /* colors */
     wt = w;
     if(wt>95)
     {
-        ST7735_fillRect(95, 60, wt-96, 4, ST7735_RED);
+        ST7735_fillRect(95, 60, wt-95, 4, ST7735_RED);
         wt=95;
     }
     if(wt>63)
     {
-        ST7735_fillRect(63, 60, wt-64, 4, ST7735_YELLOW);
+        ST7735_fillRect(63, 60, wt-63, 4, ST7735_YELLOW);
         wt=63;
     }
     ST7735_fillRect(0, 60, wt, 4, ST7735_GREEN);
-#else
-    /* white */
-    ST7735_fillRect(0, 60, w, 4, ST7735_WHITE);
-#endif
-    ST7735_fillRect(w, 60, 127-w, 4, ST7735_BLACK);
+    
+    if(w<127)
+        ST7735_fillRect(w, 60, 127-w, 4, ST7735_BLACK);
 
 }
 
