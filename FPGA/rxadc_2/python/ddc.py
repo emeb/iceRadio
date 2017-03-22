@@ -53,7 +53,7 @@ class cic_dec:
         self.num_stages = num_stages
         self.dec_rate = dec_rate
         acc_bits = x_bits + self.num_stages * np.log2(self.dec_rate)
-        self.sat_val = 2**(acc_bits-1)
+        self.sat_val = 2**acc_bits
         
     # compute the model
     def calc(self, x):
@@ -68,7 +68,7 @@ class cic_dec:
         for y_idx in np.arange(y_len):
             # Integrators
             for x_idx in np.arange(self.dec_rate):
-                new_intg[0] = (intg[0] + x[(y_idx * self.dec_rate) + x_idx]) % self.sat_val
+                new_intg[0] = ((intg[0] + x[(y_idx * self.dec_rate) + x_idx] + self.sat_val/2) % self.sat_val) - self.sat_val/2
                 
                 for stage in np.arange(1,self.num_stages):
                     new_intg[stage] = (intg[stage] + intg[stage-1]) % self.sat_val
@@ -78,7 +78,7 @@ class cic_dec:
             # Combs
             temp = intg[self.num_stages-1]
             for stage in np.arange(self.num_stages):
-                diff = ((temp - comb[stage]+self.sat_val/2) % self.sat_val) - self.sat_val/2;
+                diff = ((temp - comb[stage]+self.sat_val/2) % self.sat_val) - self.sat_val/2
                 comb[stage] = temp
                 temp = 1*diff
 
