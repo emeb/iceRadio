@@ -49,7 +49,7 @@ plt.title("sinusoid - time")
 
 # plot of frequency
 fig = plt.figure(2)
-f = Fs * fftshift(fftfreq(data_len))/1e6
+f = rate * fftshift(fftfreq(data_len))/1e6
 win = signal.blackmanharris(data_len)
 data_bhwin = data * win
 bh_gain = sum(win)/data_len
@@ -60,6 +60,6 @@ plt.grid()
 plt.xlabel("Frequency (MHz)")
 plt.ylabel("dB")
 plt.title("sinusoid - freq")
-plt.xlim((0, (Fs/1e6)/2))
+plt.xlim((0, (rate/1e6)/2))
 plt.show()
 
